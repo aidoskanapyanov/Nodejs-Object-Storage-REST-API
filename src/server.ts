@@ -4,7 +4,11 @@ import express from "express";
 import morgan from "morgan";
 import { refreshAccessToken, signin, signup } from "./handlers/auth";
 import authenticateJWT from "./middlewares/jwtAuth";
-import { AuthSchema, validate } from "./middlewares/validation";
+import {
+  AuthSchema,
+  RefreshTokenSchema,
+  validate,
+} from "./middlewares/validation";
 
 const app = express();
 
@@ -21,7 +25,7 @@ app.get("/", authenticateJWT, (req, res) => {
 
 app.post("/signup", validate(AuthSchema), signup);
 app.post("/signin", validate(AuthSchema), signin);
-app.post("/signin/new_token", refreshAccessToken);
+app.post("/signin/new_token", validate(RefreshTokenSchema), refreshAccessToken);
 
 app.use((err, req, res, next) => {
   console.log(err);

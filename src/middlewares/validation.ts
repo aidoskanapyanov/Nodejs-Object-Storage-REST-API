@@ -8,10 +8,17 @@ export const AuthSchema = z.object({
   }),
 });
 
+export const RefreshTokenSchema = z.object({
+  cookies: z.object({
+    refreshToken: z.string(),
+  }),
+});
+
 export const validate = (schema) => (req, res, next) => {
   try {
     schema.parse({
       body: req.body,
+      cookies: req.cookies,
       query: req.query,
       params: req.params,
     });
