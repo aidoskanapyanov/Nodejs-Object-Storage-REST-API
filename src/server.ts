@@ -2,7 +2,9 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";
+import multer from "multer";
 import { logout, refreshAccessToken, signin, signup } from "./handlers/auth";
+import { uploadFile } from "./handlers/fileUpload";
 import { getUserInfo } from "./handlers/userInfo";
 import authenticateJWT from "./middlewares/jwtAuth";
 import {
@@ -11,6 +13,7 @@ import {
   validate,
 } from "./middlewares/validation";
 
+const upload = multer({ dest: "uploads/" });
 const app = express();
 
 /**
@@ -42,6 +45,16 @@ app.get("/logout", authenticateJWT, validate(RefreshTokenSchema), logout);
  * user info route
  */
 app.get("/info", authenticateJWT, getUserInfo);
+
+/**
+ * file routes
+ */
+app.post(
+  "/file/upload",
+  authenticateJWT,
+  upload.single("uploadedFile"),
+  uploadFile
+);
 
 app.use((err, req, res, next) => {
   console.log(err);
