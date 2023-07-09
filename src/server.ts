@@ -36,7 +36,7 @@ app.get("/", authenticateJWT, (req, res) => {
 app.post("/signup", validate(AuthSchema), signup);
 app.post("/signin", validate(AuthSchema), signin);
 app.post("/signin/new_token", validate(RefreshTokenSchema), refreshAccessToken);
-app.get("/logout", authenticateJWT, logout);
+app.get("/logout", authenticateJWT, validate(RefreshTokenSchema), logout);
 
 /**
  * user info route
