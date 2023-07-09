@@ -112,6 +112,7 @@ export const logout = async (req, res) => {
       },
     });
     res.clearCookie("refreshToken");
+    res.json({ message: "Logged out" });
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === "P2002") {
