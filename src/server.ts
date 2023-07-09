@@ -1,7 +1,9 @@
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";
+import { signup } from "./handlers/auth";
 import authenticateJWT from "./middlewares/jwtAuth";
+import { SignupSchema, validate } from "./middlewares/validation";
 
 const app = express();
 
@@ -14,6 +16,8 @@ app.get("/", authenticateJWT, (req, res) => {
     message: "Hello World!",
   });
 });
+
+app.post("/signup", validate(SignupSchema), signup);
 
 app.use((err, req, res, next) => {
   console.log(err);
