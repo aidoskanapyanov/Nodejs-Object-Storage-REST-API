@@ -97,3 +97,28 @@ export const signup = async (req, res) => {
     }
   }
 };
+
+export const logout = async (req, res) => {
+  const { userId } = req.user;
+  const accessToken = req.headers.authorization.split(" ")[1];
+  const { refreshToken } = req.cookies;
+
+  try {
+    await prisma.invalidatedToken.create({
+      data: {
+        userId,
+        accessToken,
+        refreshToken,
+      },
+    });
+    res.clearCookie("refreshToken");
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      if (e.code === "P2002") {
+        res.status(400).json({ error: "Tokens are already invalidated" });
+        return;
+      }
+    }
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
