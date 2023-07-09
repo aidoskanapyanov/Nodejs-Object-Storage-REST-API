@@ -15,7 +15,13 @@ export const signup = async (req, res) => {
     });
 
     const { accessToken, refreshToken } = createJwtTokens(user);
-    res.status(201).json({ accessToken, refreshToken });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+    res.status(201).json({ accessToken });
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === "P2002") {
