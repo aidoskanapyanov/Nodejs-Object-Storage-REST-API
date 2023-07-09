@@ -9,3 +9,32 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  phoneNumber  String   @unique
+  email        String   @unique
+  passwordHash String
+
+  files File[]
+}
+
+model File {
+  id        Int      @id @default(autoincrement())
+  name      String
+  extension String
+  mimeType  String
+  size      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+model InvalidatedToken {
+  id    Int    @id @default(autoincrement())
+  token String @unique
+}
