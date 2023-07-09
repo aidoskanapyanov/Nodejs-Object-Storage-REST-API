@@ -19,3 +19,16 @@ Content-Type: application/json
     "id": "+77771112233",
     "password": "password"
 }
+
+### signin
+post http://localhost:{{$dotenv PORT}}/signin
+Content-Type: application/json
+
+{
+    "id": "email@example.com",
+    "password": "password"
+}
+
+### refresh access token
+post http://localhost:{{$dotenv PORT}}/signin/new_token
+Content-Type: application/json
