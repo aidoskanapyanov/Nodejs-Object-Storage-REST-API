@@ -1,3 +1,12 @@
 ### Access root url
 get http://localhost:{{$dotenv PORT}}
 Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
+
+### signup
+post http://localhost:{{$dotenv PORT}}/signup
+Content-Type: application/json
+
+{
+    "id": "email@example.com",
+    "password": "password"
+}
