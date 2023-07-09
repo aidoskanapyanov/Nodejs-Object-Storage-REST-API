@@ -36,3 +36,7 @@ Content-Type: application/json
 ### get user info
 get http://localhost:{{$dotenv PORT}}/info
 Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
+
+### logout and invalidate both access and refresh tokens (blacklist)
+get http://localhost:{{$dotenv PORT}}/logout
+Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
