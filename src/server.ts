@@ -2,14 +2,14 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";
-import { refreshAccessToken, signin, signup } from "./handlers/auth";
+import { logout, refreshAccessToken, signin, signup } from "./handlers/auth";
+import { getUserInfo } from "./handlers/userInfo";
 import authenticateJWT from "./middlewares/jwtAuth";
 import {
   AuthSchema,
   RefreshTokenSchema,
   validate,
 } from "./middlewares/validation";
-import { getUserInfo } from "./handlers/userInfo";
 
 const app = express();
 
@@ -36,6 +36,7 @@ app.get("/", authenticateJWT, (req, res) => {
 app.post("/signup", validate(AuthSchema), signup);
 app.post("/signin", validate(AuthSchema), signin);
 app.post("/signin/new_token", validate(RefreshTokenSchema), refreshAccessToken);
+app.get("/logout", authenticateJWT, logout);
 
 /**
  * user info route
