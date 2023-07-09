@@ -5,7 +5,7 @@ Rest api design w/ express.js.
 ## Design doc
 
 Design a service with REST API.
-- Authorization via Bearer token (/info, /latency, /logout, /file(все роуты) );
+- Authorization via Bearer token (/info, /logout, /file(all routes) );
 - Setup CORS for any domain;
 - DB – Mysql;
 - Generate access token on each authorization, valid for 10 minutes. Refresh it after expiration using refresh token;
@@ -22,7 +22,7 @@ Design a service with REST API.
     - /file/download/:id [GET] - download a specific file;
     - /file/update/:id [PUT] - update the current document to a new one in the database and local storage;
 - In case of successful registration, return a pair of bearer token and refresh token;
-    - /inf  - [GET] - returns user id;
+    - /info  - [GET] - returns user id;
     - /logout [GET] - logs out of the system;
 - After logout, you need to get a new token;
 - Old tokens should not be valid;
