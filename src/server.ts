@@ -4,7 +4,7 @@ import express from "express";
 import morgan from "morgan";
 import multer from "multer";
 import { logout, refreshAccessToken, signin, signup } from "./handlers/auth";
-import { uploadFile } from "./handlers/fileUpload";
+import { uploadFile } from "./handlers/files";
 import { getUserInfo } from "./handlers/userInfo";
 import authenticateJWT from "./middlewares/jwtAuth";
 import {
