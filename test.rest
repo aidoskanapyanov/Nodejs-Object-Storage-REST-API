@@ -56,3 +56,7 @@ Content-Type: text/plain
 ### file list
 get http://localhost:{{$dotenv PORT}}/file/list?list_size=5&page=3
 Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
+
+### delete file
+delete http://localhost:{{$dotenv PORT}}/file/delete/28
+Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
