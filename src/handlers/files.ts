@@ -60,6 +60,14 @@ export const deleteFile = async (req, res) => {
 
     res.status(204).json({ message: "file deleted successfully" });
   } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      if (e.code === "P2025") {
+        res
+          .status(404)
+          .json({ message: "you're trying to delete a nonexistent file" });
+        return;
+      }
+    }
     console.log(e);
     res.status(500).json({ message: "file deletion failed" });
   }
@@ -76,6 +84,10 @@ export const getFileInfo = async (req, res) => {
         },
       },
     });
+
+    if (!file) {
+      return res.status(404).json({ message: "file not found" });
+    }
 
     res.json({ file });
   } catch (e) {
@@ -96,6 +108,10 @@ export const downloadFile = async (req, res) => {
       },
     });
 
+    if (!file) {
+      return res.status(404).json({ message: "file not found" });
+    }
+
     res.download(file.path, file.originalname);
   } catch (e) {
     console.log(e);
@@ -114,6 +130,11 @@ export const updateFile = async (req, res) => {
         },
       },
     });
+    if (!fileToUpdate) {
+      return res
+        .status(404)
+        .json({ message: "you're trying to update a nonexistent file" });
+    }
     fs.unlinkSync(fileToUpdate.path);
 
     const updatedFile = await prisma.file.update({
