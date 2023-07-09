@@ -7,6 +7,7 @@ const app = express();
 
 app.use(cors()); // allow all origins
 app.use(morgan("dev")); // log status codes
+app.use(express.json()); // parse json bodies (content-type: application/json)
 
 app.get("/", authenticateJWT, (req, res) => {
   res.json({
