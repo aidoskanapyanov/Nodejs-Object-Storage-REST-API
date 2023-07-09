@@ -54,7 +54,7 @@ Content-Type: text/plain
 --MfnBoundry--
 
 ### file list
-get http://localhost:{{$dotenv PORT}}/file/list?list_size=5&page=3
+get http://localhost:{{$dotenv PORT}}/file/list?list_size=5&page=1
 Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
 
 ### delete file
