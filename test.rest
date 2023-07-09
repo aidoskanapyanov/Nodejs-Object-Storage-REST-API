@@ -1,2 +1,2 @@
 ### curl root /
-curl http://localhost:{{$dotenv PORT}}
+get http://localhost:{{$dotenv PORT}}
