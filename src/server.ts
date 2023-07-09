@@ -9,23 +9,38 @@ import {
   RefreshTokenSchema,
   validate,
 } from "./middlewares/validation";
+import { getUserInfo } from "./handlers/userInfo";
 
 const app = express();
 
+/**
+ * middlewares
+ */
 app.use(cors()); // allow all origins
 app.use(morgan("dev")); // log status codes
 app.use(express.json()); // parse json bodies (content-type: application/json)
 app.use(cookieParser());
 
+/**
+ * root route for simple auth middleware testing
+ */
 app.get("/", authenticateJWT, (req, res) => {
   res.json({
     message: "Hello World!",
   });
 });
 
+/**
+ * authentication routes
+ */
 app.post("/signup", validate(AuthSchema), signup);
 app.post("/signin", validate(AuthSchema), signin);
 app.post("/signin/new_token", validate(RefreshTokenSchema), refreshAccessToken);
+
+/**
+ * user info route
+ */
+app.get("/info", authenticateJWT, getUserInfo);
 
 app.use((err, req, res, next) => {
   console.log(err);
