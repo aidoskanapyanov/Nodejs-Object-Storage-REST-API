@@ -4,7 +4,7 @@ import express from "express";
 import morgan from "morgan";
 import multer from "multer";
 import { logout, refreshAccessToken, signin, signup } from "./handlers/auth";
-import { uploadFile } from "./handlers/files";
+import { listFiles, uploadFile } from "./handlers/files";
 import { getUserInfo } from "./handlers/userInfo";
 import authenticateJWT from "./middlewares/jwtAuth";
 import {
@@ -55,6 +55,7 @@ app.post(
   upload.single("uploadedFile"),
   uploadFile
 );
+app.get("/file/list", authenticateJWT, listFiles);
 
 app.use((err, req, res, next) => {
   console.log(err);
