@@ -23,13 +23,17 @@ model User {
 }
 
 model File {
-  id        Int      @id @default(autoincrement())
-  name      String
-  extension String
-  mimeType  String
-  size      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int      @id @default(autoincrement())
+  originalname String
+  extension    String
+  mimeType     String
+  size         Int
+  encoding     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  filename String
+  path     String
 
   User   User? @relation(fields: [userId], references: [id])
   userId Int?
