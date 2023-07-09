@@ -2,11 +2,20 @@
 get http://localhost:{{$dotenv PORT}}
 Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
 
-### signup
+### signup w/ email and password
 post http://localhost:{{$dotenv PORT}}/signup
 Content-Type: application/json
 
 {
     "id": "email@example.com",
+    "password": "password"
+}
+
+### signup w/ phone number and password
+post http://localhost:{{$dotenv PORT}}/signup
+Content-Type: application/json
+
+{
+    "id": "+77771112233",
     "password": "password"
 }
