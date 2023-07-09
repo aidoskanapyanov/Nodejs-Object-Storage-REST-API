@@ -36,8 +36,9 @@ model File {
 }
 
 model InvalidatedToken {
-  id     Int    @id @default(autoincrement())
-  token  String @unique
-  User   User?  @relation(fields: [userId], references: [id])
-  userId Int?
+  id           Int    @id @default(autoincrement())
+  accessToken  String @unique
+  refreshToken String @unique
+  User         User?  @relation(fields: [userId], references: [id])
+  userId       Int?
 }
