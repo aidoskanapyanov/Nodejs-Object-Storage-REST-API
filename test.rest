@@ -53,5 +53,6 @@ Content-Type: text/plain
 < ./test.txt
 --MfnBoundry--
 
-### file download
-get http://localhost:{{$dotenv PORT}}/file/download/test.txt
+### file list
+get http://localhost:{{$dotenv PORT}}/file/list?list_size=5&page=3
+Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
