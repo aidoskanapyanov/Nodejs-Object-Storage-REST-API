@@ -4,7 +4,12 @@ import express from "express";
 import morgan from "morgan";
 import multer from "multer";
 import { logout, refreshAccessToken, signin, signup } from "./handlers/auth";
-import { deleteFile, listFiles, uploadFile } from "./handlers/files";
+import {
+  deleteFile,
+  getFileInfo,
+  listFiles,
+  uploadFile,
+} from "./handlers/files";
 import { getUserInfo } from "./handlers/userInfo";
 import authenticateJWT from "./middlewares/jwtAuth";
 import {
@@ -57,6 +62,7 @@ app.post(
 );
 app.get("/file/list", authenticateJWT, listFiles);
 app.delete("/file/delete/:id", authenticateJWT, deleteFile);
+app.get("/file/:id", authenticateJWT, getFileInfo);
 
 app.use((err, req, res, next) => {
   console.log(err);

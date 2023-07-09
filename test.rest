@@ -60,3 +60,7 @@ Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
 ### delete file
 delete http://localhost:{{$dotenv PORT}}/file/delete/28
 Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
+
+### file info
+get http://localhost:{{$dotenv PORT}}/file/34
+Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}

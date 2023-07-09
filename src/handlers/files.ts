@@ -64,3 +64,22 @@ export const deleteFile = async (req, res) => {
     res.status(500).json({ message: "file deletion failed" });
   }
 };
+
+export const getFileInfo = async (req, res) => {
+  const id = parseInt(req.params.id);
+  try {
+    const file = await prisma.file.findUnique({
+      where: {
+        id_userId: {
+          id,
+          userId: req.user.userId,
+        },
+      },
+    });
+
+    res.json({ file });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "file info retrieval failed" });
+  }
+};
