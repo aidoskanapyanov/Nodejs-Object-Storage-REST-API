@@ -6,6 +6,7 @@ import multer from "multer";
 import { logout, refreshAccessToken, signin, signup } from "./handlers/auth";
 import {
   deleteFile,
+  downloadFile,
   getFileInfo,
   listFiles,
   uploadFile,
@@ -63,6 +64,7 @@ app.post(
 app.get("/file/list", authenticateJWT, listFiles);
 app.delete("/file/delete/:id", authenticateJWT, deleteFile);
 app.get("/file/:id", authenticateJWT, getFileInfo);
+app.get("/file/download/:id", authenticateJWT, downloadFile);
 
 app.use((err, req, res, next) => {
   console.log(err);

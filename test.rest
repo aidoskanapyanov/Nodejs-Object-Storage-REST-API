@@ -64,3 +64,7 @@ Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
 ### file info
 get http://localhost:{{$dotenv PORT}}/file/34
 Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
+
+### file download
+get http://localhost:{{$dotenv PORT}}/file/download/34
+Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}

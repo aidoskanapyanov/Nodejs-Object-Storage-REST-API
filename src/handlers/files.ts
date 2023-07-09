@@ -83,3 +83,22 @@ export const getFileInfo = async (req, res) => {
     res.status(500).json({ message: "file info retrieval failed" });
   }
 };
+
+export const downloadFile = async (req, res) => {
+  const id = parseInt(req.params.id);
+  try {
+    const file = await prisma.file.findUnique({
+      where: {
+        id_userId: {
+          id,
+          userId: req.user.userId,
+        },
+      },
+    });
+
+    res.download(file.path, file.originalname);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "file download failed" });
+  }
+};
