@@ -40,3 +40,18 @@ Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
 ### logout and invalidate both access and refresh tokens (blacklist)
 get http://localhost:{{$dotenv PORT}}/logout
 Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
+
+### file upload
+post http://localhost:{{$dotenv PORT}}/file/upload
+Content-Type: multipart/form-data; boundary=MfnBoundry
+Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
+
+--MfnBoundry
+Content-Disposition: form-data; name="uploadedFile"; filename="test.txt"
+Content-Type: text/plain
+
+< ./test.txt
+--MfnBoundry--
+
+### file download
+get http://localhost:{{$dotenv PORT}}/file/download/test.txt
