@@ -102,3 +102,41 @@ export const downloadFile = async (req, res) => {
     res.status(500).json({ message: "file download failed" });
   }
 };
+
+export const updateFile = async (req, res) => {
+  const id = parseInt(req.params.id);
+  try {
+    const fileToUpdate = await prisma.file.findUnique({
+      where: {
+        id_userId: {
+          id,
+          userId: req.user.userId,
+        },
+      },
+    });
+    fs.unlinkSync(fileToUpdate.path);
+
+    const updatedFile = await prisma.file.update({
+      where: {
+        id_userId: {
+          id,
+          userId: req.user.userId,
+        },
+      },
+      data: {
+        originalname: req.file.originalname,
+        extension: path.extname(req.file.originalname),
+        mimeType: req.file.mimetype,
+        size: req.file.size,
+        encoding: req.file.encoding,
+        filename: req.file.filename,
+        path: req.file.path,
+        userId: req.user.userId,
+      },
+    });
+    res.json({ updatedFile });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "file update failed" });
+  }
+};
