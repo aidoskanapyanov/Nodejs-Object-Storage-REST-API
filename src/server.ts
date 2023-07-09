@@ -9,6 +9,7 @@ import {
   downloadFile,
   getFileInfo,
   listFiles,
+  updateFile,
   uploadFile,
 } from "./handlers/files";
 import { getUserInfo } from "./handlers/userInfo";
@@ -65,6 +66,12 @@ app.get("/file/list", authenticateJWT, listFiles);
 app.delete("/file/delete/:id", authenticateJWT, deleteFile);
 app.get("/file/:id", authenticateJWT, getFileInfo);
 app.get("/file/download/:id", authenticateJWT, downloadFile);
+app.put(
+  "/file/update/:id",
+  authenticateJWT,
+  upload.single("uploadedFile"),
+  updateFile
+);
 
 app.use((err, req, res, next) => {
   console.log(err);
