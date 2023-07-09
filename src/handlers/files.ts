@@ -1,4 +1,6 @@
+import { File, Prisma } from "@prisma/client";
 import path from "path";
+import { createPaginator } from "prisma-pagination";
 import prisma from "../db";
 
 export const uploadFile = async (req, res) => {
@@ -19,4 +21,23 @@ export const uploadFile = async (req, res) => {
   } catch (e) {
     res.status(500).json({ message: "file upload failed" });
   }
+};
+
+export const listFiles = async (req, res) => {
+  const query = req.query;
+  const paginate = createPaginator({ perPage: query.list_size || 10 });
+
+  const files = await paginate<File, Prisma.FileFindManyArgs>(
+    prisma.file,
+    {
+      where: {
+        userId: req.user.userId,
+      },
+      orderBy: {
+        id: "desc",
+      },
+    },
+    { page: query.page || 1 }
+  );
+  res.json({ files });
 };
