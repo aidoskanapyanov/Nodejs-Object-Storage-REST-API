@@ -16,5 +16,5 @@ export function createJwtTokens(user) {
       expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
     }
   );
-  return { refreshToken, accessToken };
+  return { accessToken, refreshToken };
 }
