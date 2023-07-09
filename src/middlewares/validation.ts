@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const SignupSchema = z.object({
+export const AuthSchema = z.object({
   body: z.object({
     id: z.string(),
     // password should be at least 6 characters
