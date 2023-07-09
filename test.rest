@@ -68,3 +68,15 @@ Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
 ### file download
 get http://localhost:{{$dotenv PORT}}/file/download/34
 Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
+
+### file update
+put http://localhost:{{$dotenv PORT}}/file/update/34
+Content-Type: multipart/form-data; boundary=MfnBoundry
+Authorization: Bearer {{$dotenv BEARER_EXAMPLE}}
+
+--MfnBoundry
+Content-Disposition: form-data; name="uploadedFile"; filename="test-update.txt"
+Content-Type: text/plain
+
+< ./test-update.txt
+--MfnBoundry--
