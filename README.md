@@ -1,4 +1,4 @@
-# Take-home task xim-inc
+# Nodejs-Object-Storage-REST-API
 
 Rest api design w/ express.js.
 
